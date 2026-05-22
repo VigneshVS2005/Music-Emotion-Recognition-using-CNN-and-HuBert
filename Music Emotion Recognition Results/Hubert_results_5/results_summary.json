@@ -1,0 +1,78 @@
+{
+  "timestamp": "20260304_174152",
+  "test_accuracy": 89.82737361282368,
+  "best_val_accuracy": 93.62292051756008,
+  "total_samples": 10812,
+  "labeled_samples": 10812,
+  "unlabeled_samples": 0,
+  "total_parameters": 3452808,
+  "trainable_parameters": 3452808,
+  "batch_size": 32,
+  "epochs": 50,
+  "total_training_time_seconds": 2405.2952270507812,
+  "classification_report": {
+    "Happy/Pleased": {
+      "precision": 0.8214849921011058,
+      "recall": 0.9403254972875226,
+      "f1-score": 0.8768971332209107,
+      "support": 553.0
+    },
+    "Excited/Alert": {
+      "precision": 0.8594507269789984,
+      "recall": 0.9415929203539823,
+      "f1-score": 0.8986486486486487,
+      "support": 565.0
+    },
+    "Tense/Nervous": {
+      "precision": 0.81640625,
+      "recall": 0.920704845814978,
+      "f1-score": 0.865424430641822,
+      "support": 227.0
+    },
+    "Angry/Annoyed": {
+      "precision": 0.9379310344827586,
+      "recall": 0.7351351351351352,
+      "f1-score": 0.8242424242424242,
+      "support": 185.0
+    },
+    "Sad/Depressed": {
+      "precision": 0.961038961038961,
+      "recall": 0.8621359223300971,
+      "f1-score": 0.9089048106448311,
+      "support": 515.0
+    },
+    "Bored/Lethargic": {
+      "precision": 0.9426336375488917,
+      "recall": 0.9426336375488917,
+      "f1-score": 0.9426336375488917,
+      "support": 767.0
+    },
+    "Calm/Relaxed": {
+      "precision": 0.9559471365638766,
+      "recall": 0.8611111111111112,
+      "f1-score": 0.906054279749478,
+      "support": 252.0
+    },
+    "Content/Serene": {
+      "precision": 0.9851851851851852,
+      "recall": 0.7388888888888889,
+      "f1-score": 0.8444444444444444,
+      "support": 180.0
+    },
+    "accuracy": 0.8982737361282368,
+    "macro avg": {
+      "precision": 0.9100097404874722,
+      "recall": 0.8678159948088259,
+      "f1-score": 0.8834062261426814,
+      "support": 3244.0
+    },
+    "weighted avg": {
+      "precision": 0.9047100487629011,
+      "recall": 0.8982737361282368,
+      "f1-score": 0.8979680799559645,
+      "support": 3244.0
+    }
+  },
+  "gpu_used": true,
+  "gpu_name": "NVIDIA A100 80GB PCIe"
+}
