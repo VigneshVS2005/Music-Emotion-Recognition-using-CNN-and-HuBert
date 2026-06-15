@@ -1,4 +1,4 @@
-# 🎵 Music Emotion Recognition using CNN and HuBert.
+# 🎵 Music Emotion Recognition using CNN and HuBert..
 
 A machine learning project that classifies the emotional content of music audio files (e.g., happy, sad, calm, angry) using features extracted from the audio signals.
 
