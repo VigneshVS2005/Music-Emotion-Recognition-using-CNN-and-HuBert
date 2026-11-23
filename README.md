@@ -1,41 +1,87 @@
-# 🎵 Music Emotion Recognition using CNN and HuBert..
+# 🎵 Music Emotion Recognition using CNN and HuBERT
 
-A machine learning project that classifies the emotional content of music audio files (e.g., happy, sad, calm, angry) using features extracted from the audio signals.
+<p align="center">
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch" />
+  <img src="https://img.shields.io/badge/Hugging%20Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="Hugging Face" />
+  <img src="https://img.shields.io/badge/Librosa-2496ED?style=for-the-badge&logo=python&logoColor=white" alt="Librosa" />
+  <img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="Scikit-Learn" />
+  <img src="https://img.shields.io/badge/Accuracy-89.8%25-brightgreen?style=for-the-badge" alt="Accuracy" />
+</p>
 
-## 📌 Overview
+An acoustic feature extraction and deep learning framework that combines fine-tuned **HuBERT (Hidden-Unit BERT)** speech representation embeddings with a **2D Convolutional Neural Network (CNN)** to classify musical audio into 8 categorical emotional states.
 
-Music powerfully conveys and evokes emotions. This project builds an automatic **music emotion recognition (MER)** system using supervised learning. It extracts acoustic features (like MFCCs, chroma, spectral contrast, etc.) from audio tracks and maps them to discrete emotion categories.
+---
 
-The notebook (`music-emotion-recognition (2).ipynb`) contains the end‑to‑end pipeline: data loading, feature extraction, model training, evaluation, and demonstration on new tracks.
+## 📌 Executive Summary & Key Results
 
-## 🧠 Theoretical Background
+- **Peak Validation Accuracy**: **93.62%**
+- **Test Accuracy**: **89.83%** across 3,244 holdout test audio samples.
+- **Trained on**: 10,812 audio samples utilizing NVIDIA A100 80GB GPU acceleration.
+- **Multi-Class Evaluation**: Robust F1-scores across 8 discrete affective categories (*Bored/Lethargic: 0.94*, *Sad/Depressed: 0.91*, *Calm/Relaxed: 0.91*, *Excited/Alert: 0.90*, *Happy/Pleased: 0.88*).
 
-### Emotion Models
-Two common frameworks are often used:
-- **Categorical**: discrete labels (e.g., *happy, sad, angry, relaxed, fearful*).
-- **Dimensional**: continuous valence‑arousal space (valence = positivity, arousal = intensity).
+---
 
-This project follows a **categorical approach** for simplicity and interpretability.
+## 🧠 System Architecture
 
-### Key Audio Features
-Music emotion relies on both temporal and spectral properties:
+The pipeline uses a multi-branch representation learning approach:
+1. **HuBERT Feature Extraction**: Pretrained HuBERT transformer backbone captures high-level acoustic semantics and vocal tone dynamics.
+2. **Spectral Audio Feature Extraction**: Librosa extracts Mel-Frequency Cepstral Coefficients (MFCCs), Chroma representations, Spectral Contrast, and RMS Energy to model timbre and pitch.
+3. **CNN & Fusion Head**: 2D Convolutional layers process time-frequency spectrogram representations, concatenated with the pooled HuBERT embeddings through dense classification layers with dropout regularization.
 
-- **MFCCs (Mel‑Frequency Cepstral Coefficients)** – capture timbre and texture, related to perceived emotion.
-- **Chroma Features** – represent harmonic content (pitch classes); useful for detecting major/minor tonalities (often linked to happy/sad).
-- **Spectral Contrast** – separates peaks from valleys in the spectrum; correlates with brightness and complexity.
-- **RMS Energy / Zero Crossing Rate** – indicate loudness and noisiness, linked to arousal.
+```
+Raw Audio (.mp3/.wav)
+        │
+        ├───> [ HuBERT Transformer Backbone ] ───> Acoustic Latent Vector (768-d) ──┐
+        │                                                                           │
+        └───> [ STFT / Mel-Spectrogram ]     ───> [ 2D CNN Conv Layers ]          ──┼──> [ Concatenation & Dense Layers ] ──> 8 Emotion Classes
+```
 
-### Typical Pipeline
-1. **Preprocessing** – load audio, resample to common rate, normalize amplitude.
-2. **Feature extraction** – slice audio into fixed‑length windows, compute feature vectors per window, then aggregate (mean/std).
-3. **Modeling** – use classifiers like SVM, Random Forest, or a small neural network.
-4. **Evaluation** – accuracy, F1‑score, confusion matrix.
+---
 
-## 🗂️ Repository Contents
+## 🗂️ Repository Structure
 
-| File | Description |
-|------|-------------|
-| `music-emotion-recognition (2).ipynb` | Complete Jupyter notebook with code, visualizations, and results. |
-| `README.md` | This file – project overview and theoretical background. |
+```
+├── HubertFusionModel.py                     # End-to-end model definition, feature extraction & training pipeline
+├── requirements.txt                         # Python dependencies
+├── Music Emotion Recognition Results/
+│   └── Hubert_results_5/
+│       ├── 01_training_history.png          # Epoch-by-epoch loss & accuracy trajectories
+│       ├── 02_confusion_matrix_absolute.png # Raw counts confusion matrix
+│       ├── 03_confusion_matrix_normalized.png# Normalized confusion matrix
+│       ├── 09_model_architecture.png       # Layer connectivity diagram
+│       ├── 11_tsne_visualization.png        # Latent space t-SNE projection
+│       ├── best_enhanced_song_model.pth     # Checkpointed PyTorch model weights
+│       └── results_summary.json             # Exhaustive classification benchmarks & metrics
+└── README.md
+```
 
-> Note: The audio dataset is **not included** due to size/licensing. See the “Dataset” section below for recommendations.
+---
+
+## ⚡ Quickstart & Setup
+
+### 1. Clone & Install Dependencies
+
+```bash
+git clone https://github.com/Karthickruban/Music-Emotion-Recognition-using-CNN-and-HuBert.git
+cd Music-Emotion-Recognition-using-CNN-and-HuBert
+pip install -r requirements.txt
+```
+
+### 2. Run Training / Inference Pipeline
+
+```bash
+python HubertFusionModel.py
+```
+
+---
+
+## 👥 Contributors & Research Team
+
+Developed as a collaborative AI research project:
+- **Vignesh V S** ([@VigneshVS2005](https://github.com/VigneshVS2005)) — HuBERT transformer integration & model architecture
+- **Karthick Ruban** ([@Karthickruban](https://github.com/Karthickruban)) — Audio DSP feature extraction, MFCC/spectrogram pipelines & evaluation
+
+---
+
+## 📄 License
+MIT License
